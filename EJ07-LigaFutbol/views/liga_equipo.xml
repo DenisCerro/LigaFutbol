@@ -21,7 +21,6 @@
             <form>
                 <header>
                     <!-- Botón para abrir el Wizard de creación de partido -->
-                    <button name="%(action_liga_partido_wizard)d" string="Crear Partido" type="action" class="btn-primary"/>
                 </header>
                 <group>
                     <group>
@@ -37,13 +36,6 @@
         </field>
     </record>
 
-    <!-- Acción de abrir el Wizard desde el botón en el formulario -->
-    <record id="action_liga_partido_wizard" model="ir.actions.act_window">
-        <field name="name">Nuevo Partido</field>
-        <field name="res_model">liga.partido.wizard</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-    </record>
 
 </odoo>
 
@@ -113,5 +105,13 @@
              </graph>
          </field>
      </record>
+     
+     <record id="liga_equipo_wizard_action" model="ir.actions.act_window">
+        <field name="name">Wizard para introducir un Equipo</field>
+        <field name="res_model">liga.equipo.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <menuitem name="Wizard Equipos" id="menu_wizard_liga_equipo" parent="liga_base_menu" action="liga_equipo_wizard_action"/>
 
 </odoo>

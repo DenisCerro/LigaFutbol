@@ -6,7 +6,8 @@
         <field name="res_model">liga.partido</field>
         <field name="view_mode">kanban,tree,form</field>
     </record>
-
+    
+    
     <!-- Menú para acceder a los partidos -->
     <menuitem name="Partidos de la liga" id="liga_partido_menu" parent="liga_base_menu" action="liga_partido_action" />
 
@@ -19,8 +20,6 @@
                 <header>
                     <button name="sumar_goles_local" type="object" string="Sumar 2 Goles Locales" class="btn-primary"/>
                     <button name="sumar_goles_visitante" type="object" string="Sumar 2 Goles Visitantes" class="btn-primary"/>
-                    <button name="print_report" type="object" string="Generar Informe" class="oe_highlight"/>
-
                 </header>
                 <group>
                     <group>
@@ -87,6 +86,52 @@
             </kanban>
         </field>
     </record>
+    
+    <record id="liga_partido_action_report" model="ir.actions.report">
+        <field name="name">Informe de partido</field>
+        <field name="model">liga.partido</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">EJ07-LigaFutbol.report_partido</field>
+        <field name="report_file">EJ07-LigaFutbol.report_partido</field>
+        <field name="binding_model_id" ref="model_liga_partido"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_partido">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Informe del Partido</h2>
+                        <p>
+                            <strong>Equipo de Casa:</strong> <span t-field="doc.equipo_casa"/>
+                        </p>
+                        <p>
+                            <strong>Goles Equipo de Casa:</strong> <span t-field="doc.goles_casa"/>
+                        </p>
+                        <p>
+                            <strong>Equipo Visitante:</strong> <span t-field="doc.equipo_fuera"/>
+                        </p>
+                        <p>
+                            <strong>Goles Equipo Visitante:</strong> <span t-field="doc.goles_fuera"/>
+                        </p>
+                        <p>
+                            <strong>Resultado:</strong>
+                            <t t-if="doc.goles_casa > doc.goles_fuera">
+                                Ganador: <span t-field="doc.equipo_casa"/>
+                            </t>
+                            <t t-elif="doc.goles_fuera > doc.goles_casa">
+                                Ganador: <span t-field="doc.equipo_fuera"/>
+                            </t>
+                            <t t-else="">
+                                Empate
+                            </t>
+                        </p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
 
 </odoo>
 

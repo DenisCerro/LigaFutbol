@@ -17,9 +17,6 @@ class LigaPartido(models.Model):
     )
     goles_fuera = fields.Integer()
     
-    def print_report(self):
-        # Definir aquí la lógica para generar el informe en PDF
-        return self.env.ref('EJ07-LigaFutbol.report_partido').report_action(self)
         
     @api.constrains('equipo_casa', 'equipo_fuera')
     def _check_equipos_diferentes(self):
