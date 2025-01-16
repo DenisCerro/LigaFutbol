@@ -1,0 +1,35 @@
+<odoo>
+    <!-- Vista de formulario para el Wizard -->
+    <record id="liga_partido_wizard_form_view" model="ir.ui.view">
+        <field name="name">Formulario de creación de partido</field>
+        <field name="model">liga.partido.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Nuevo Partido">
+                <group>
+                    <field name="equipo_casa"/>
+                    <field name="goles_casa"/>
+                </group>
+                <group>
+                    <field name="equipo_fuera"/>
+                    <field name="goles_fuera"/>
+                </group>
+                <footer>
+                    <button string="Crear Partido" type="object" name="crear_partido" class="btn-primary"/>
+                    <button string="Cancelar" type="object" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción para mostrar el Wizard -->
+    <record id="action_liga_partido_wizard" model="ir.actions.act_window">
+        <field name="name">Nuevo Partido</field>
+        <field name="res_model">liga.partido.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Menú para acceder al Wizard -->
+    <menuitem name="Crear Partido" id="menu_liga_partido_wizard" parent="liga_base_menu" action="action_liga_partido_wizard"/>
+</odoo>
+
